@@ -17,13 +17,13 @@ const PORT = process.env.PORT || 3000;
 
 const startServer = async () => {
   await connectDB();
-  
-  await sequelize.sync({ alter: true }); 
+
+  await sequelize.sync({ alter: true });
   console.log('🔄 Tables SQL synchronisées');
 
-  app.listen(PORT, () => {
+  app.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 Serveur lancé sur le port ${PORT}`);
-    console.log(`📡 Accessible via ${process.env.HOST_URL || 'http://localhost:3000'}`);
+    console.log(`📡 Accessible via http://localhost:${PORT}`);
   });
 };
 
