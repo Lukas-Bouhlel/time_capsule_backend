@@ -144,7 +144,6 @@ exports.logout = (req, res) => {
             sameSite: 'Strict',
         });
 
-        // Envoyer une réponse de succès
         res.status(200).json({ message: "Successfully logged out" });
     } catch (error) {
         res.status(500).json({ message: error.message || 'Logout failed' });
