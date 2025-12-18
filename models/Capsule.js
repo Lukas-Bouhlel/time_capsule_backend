@@ -1,29 +1,40 @@
-const { DataTypes } = require('sequelize');
-const { sequelize } = require('../config/db');
+'use strict';
+const { Model } = require('sequelize');
 
-const Capsule = sequelize.define('Capsule', {
-  title: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  description: {
-    type: DataTypes.TEXT,
-    allowNull: true
-  },
-  imagePath: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  latitude: {
-    type: DataTypes.FLOAT,
-    allowNull: false
-  },
-  longitude: {
-    type: DataTypes.FLOAT,
-    allowNull: false
+module.exports = (sequelize, DataTypes) => {
+  class Capsule extends Model {
+    static associate(models) {
+      Capsule.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+    }
   }
-}, {
-  timestamps: true
-});
 
-module.exports = Capsule;
+  Capsule.init({
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    imagePath: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    latitude: {
+      type: DataTypes.FLOAT,
+      allowNull: false
+    },
+    longitude: {
+      type: DataTypes.FLOAT,
+      allowNull: false
+    }
+  }, {
+    sequelize,
+    modelName: 'Capsule',
+    tableName: 'capsules',
+    timestamps: true
+  });
+
+  return Capsule;
+};

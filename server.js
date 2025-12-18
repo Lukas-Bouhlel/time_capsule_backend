@@ -1,8 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
 const { connectDB, sequelize } = require('./config/db');
 const path = require('path');
+const router = require("./routes/index.js");
 
 dotenv.config();
 
@@ -10,8 +12,9 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use('/api/capsules', require('./routes/capsuleRoutes'));
+app.use("/api", router);
 
 const PORT = process.env.PORT || 3000;
 
